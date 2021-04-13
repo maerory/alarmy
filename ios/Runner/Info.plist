@@ -11,11 +11,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-<<<<<<< HEAD
-	<string>alarmclock</string>
-=======
 	<string>alarmy</string>
->>>>>>> 71693f6 (new remote init)
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>

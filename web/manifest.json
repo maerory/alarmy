@@ -1,11 +1,6 @@
 {
-<<<<<<< HEAD
-    "name": "alarmclock",
-    "short_name": "alarmclock",
-=======
     "name": "alarmy",
     "short_name": "alarmy",
->>>>>>> 71693f6 (new remote init)
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

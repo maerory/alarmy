@@ -8,11 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-<<<<<<< HEAD
-import 'package:alarmclock/main.dart';
-=======
 import 'package:alarmy/main.dart';
->>>>>>> 71693f6 (new remote init)
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {

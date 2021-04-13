@@ -1,13 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-<<<<<<< HEAD
-    package="com.example.alarmclock">
-   <application
-        android:label="alarmclock"
-=======
     package="com.example.alarmy">
    <application
         android:label="alarmy"
->>>>>>> 71693f6 (new remote init)
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
