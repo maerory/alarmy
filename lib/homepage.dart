@@ -25,9 +25,9 @@ class _HomePageState extends State<HomePage> {
           Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                buildMenuButton(),
-                buildMenuButton(),
-                buildMenuButton(),
+                new MenuButton(title: "Clock"),
+                new MenuButton(title: "Alarm"),
+                new MenuButton(title: "Stopwatch"),
               ]),
           VerticalDivider(
             color: Colors.white54,
@@ -39,37 +39,76 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(
-                        'Clock',
-                        style: TextStyle(color: Colors.white, fontSize: 24),
+                      Flexible(
+                        flex: 1,
+                        fit: FlexFit.tight,
+                        child: Text(
+                          'Clock',
+                          style: TextStyle(
+                              fontFamily: "avenir",
+                              color: Colors.white,
+                              fontSize: 24),
+                        ),
                       ),
-                      SizedBox(height: 32),
-                      Text(
-                        formattedTime,
-                        style: TextStyle(color: Colors.white, fontSize: 64),
+                      Flexible(
+                        flex: 2,
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                formattedTime,
+                                style: TextStyle(
+                                    fontFamily: "avenir",
+                                    color: Colors.white,
+                                    fontSize: 64),
+                              ),
+                              Text(
+                                formattedDate,
+                                style: TextStyle(
+                                    fontFamily: "avenir",
+                                    color: Colors.white,
+                                    fontSize: 20),
+                              ),
+                            ]),
                       ),
-                      Text(
-                        formattedDate,
-                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      Flexible(
+                        flex: 4,
+                        fit: FlexFit.tight,
+                        child: Align(
+                            alignment: Alignment.center,
+                            child: ClockView(size: 250)),
                       ),
-                      ClockView(),
-                      Text(
-                        'Timezone',
-                        style: TextStyle(color: Colors.white, fontSize: 24),
-                      ),
-                      SizedBox(width: 16),
-                      Row(
-                        children: <Widget>[
-                          Icon(
-                            Icons.language,
-                            color: Colors.white,
-                          ),
-                          SizedBox(width: 16),
-                          Text(
-                            'UTC' + offsetSign + timezoneString,
-                            style: TextStyle(color: Colors.white, fontSize: 14),
-                          ),
-                        ],
+                      Flexible(
+                        flex: 2,
+                        fit: FlexFit.tight,
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                'Timezone',
+                                style: TextStyle(
+                                    fontFamily: "avenir",
+                                    color: Colors.white,
+                                    fontSize: 24),
+                              ),
+                              SizedBox(width: 16),
+                              Row(
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.language,
+                                    color: Colors.white,
+                                  ),
+                                  SizedBox(width: 16),
+                                  Text(
+                                    'UTC' + offsetSign + timezoneString,
+                                    style: TextStyle(
+                                        fontFamily: "avenir",
+                                        color: Colors.white,
+                                        fontSize: 14),
+                                  ),
+                                ],
+                              )
+                            ]),
                       )
                     ])),
           )
@@ -79,10 +118,13 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class buildMenuButton extends StatelessWidget {
-  const buildMenuButton({
+class MenuButton extends StatelessWidget {
+  const MenuButton({
     Key key,
+    this.title,
   }) : super(key: key);
+
+  final String title;
 
   @override
   Padding build(BuildContext context) {
@@ -97,7 +139,9 @@ class buildMenuButton extends StatelessWidget {
               size: 24.0,
               semanticLabel: 'Clock',
             ),
-            Text('title', style: TextStyle(color: Colors.white, fontSize: 14))
+            Text(title,
+                style: TextStyle(
+                    fontFamily: "avenir", color: Colors.white, fontSize: 14))
           ])),
     );
   }
