@@ -27,6 +27,7 @@ class _HomePageState extends State<HomePage> {
               children: <Widget>[
                 new MenuButton(title: "Clock"),
                 new MenuButton(title: "Alarm"),
+                new MenuButton(title: "Timer"),
                 new MenuButton(title: "Stopwatch"),
               ]),
           VerticalDivider(
@@ -46,6 +47,7 @@ class _HomePageState extends State<HomePage> {
                           'Clock',
                           style: TextStyle(
                               fontFamily: "avenir",
+                              fontWeight: FontWeight.w700,
                               color: Colors.white,
                               fontSize: 24),
                         ),
@@ -59,6 +61,7 @@ class _HomePageState extends State<HomePage> {
                                 formattedTime,
                                 style: TextStyle(
                                     fontFamily: "avenir",
+                                    fontWeight: FontWeight.w500,
                                     color: Colors.white,
                                     fontSize: 64),
                               ),
@@ -76,7 +79,8 @@ class _HomePageState extends State<HomePage> {
                         fit: FlexFit.tight,
                         child: Align(
                             alignment: Alignment.center,
-                            child: ClockView(size: 250)),
+                            child: ClockView(
+                                size: MediaQuery.of(context).size.height / 3)),
                       ),
                       Flexible(
                         flex: 2,
@@ -88,6 +92,7 @@ class _HomePageState extends State<HomePage> {
                                 'Timezone',
                                 style: TextStyle(
                                     fontFamily: "avenir",
+                                    fontWeight: FontWeight.w300,
                                     color: Colors.white,
                                     fontSize: 24),
                               ),
@@ -127,22 +132,22 @@ class MenuButton extends StatelessWidget {
   final String title;
 
   @override
-  Padding build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16.0),
-      child: TextButton(
-          onPressed: () {},
-          child: Column(children: <Widget>[
-            Icon(
-              Icons.favorite,
-              color: Colors.pink,
-              size: 24.0,
-              semanticLabel: 'Clock',
-            ),
-            Text(title,
-                style: TextStyle(
-                    fontFamily: "avenir", color: Colors.white, fontSize: 14))
-          ])),
-    );
+  Widget build(BuildContext context) {
+    return TextButton(
+        style: TextButton.styleFrom(
+            backgroundColor: title == 'Clock' ? Colors.red : Colors.transparent,
+            padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 0)),
+        onPressed: () {},
+        child: Column(children: <Widget>[
+          Icon(
+            Icons.favorite,
+            color: Colors.pink,
+            size: 24.0,
+            semanticLabel: 'Clock',
+          ),
+          Text(title,
+              style: TextStyle(
+                  fontFamily: "avenir", color: Colors.white, fontSize: 14))
+        ]));
   }
 }
