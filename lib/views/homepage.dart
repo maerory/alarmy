@@ -1,11 +1,12 @@
-import 'package:alarmy/menu_info.dart';
+import 'package:alarmy/models/menu_info.dart';
 import 'package:flutter/material.dart';
 import 'package:alarmy/enums.dart';
-import 'clock_view.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:alarmy/data.dart';
 import 'package:alarmy/constants/theme_data.dart';
+import 'package:alarmy/views/clock_page.dart';
+import 'package:alarmy/views/alarm_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -15,14 +16,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    var now = DateTime.now();
-    var formattedTime = DateFormat('HH:mm').format(now);
-    var formattedDate = DateFormat('MMM-d, EEE').format(now);
-    var timezoneString = now.timeZoneOffset.toString().split('.').first;
-    var offsetSign = '';
-    if (!timezoneString.startsWith('-')) offsetSign = '+';
-    print(timezoneString);
-
     return Scaffold(
       backgroundColor: Color(0xFF2D2F41),
       body: Row(
@@ -39,89 +32,22 @@ class _HomePageState extends State<HomePage> {
           ),
           Expanded(child: Consumer<MenuInfo>(
             builder: (BuildContext context, MenuInfo value, Widget child) {
-              if (value.menuType != MenuType.clock) return Container();
-              return Container(
-                  padding: EdgeInsets.symmetric(horizontal: 32, vertical: 64),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Flexible(
-                          flex: 1,
-                          fit: FlexFit.tight,
-                          child: Text(
-                            'Clock',
-                            style: TextStyle(
-                                fontFamily: "avenir",
-                                fontWeight: FontWeight.w700,
-                                color: Colors.white,
-                                fontSize: 24),
-                          ),
-                        ),
-                        Flexible(
-                          flex: 2,
-                          child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  formattedTime,
-                                  style: TextStyle(
-                                      fontFamily: "avenir",
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.white,
-                                      fontSize: 64),
-                                ),
-                                Text(
-                                  formattedDate,
-                                  style: TextStyle(
-                                      fontFamily: "avenir",
-                                      color: Colors.white,
-                                      fontSize: 20),
-                                ),
-                              ]),
-                        ),
-                        Flexible(
-                          flex: 4,
-                          fit: FlexFit.tight,
-                          child: Align(
-                              alignment: Alignment.center,
-                              child: ClockView(
-                                  size:
-                                      MediaQuery.of(context).size.height / 3)),
-                        ),
-                        Flexible(
-                          flex: 2,
-                          fit: FlexFit.tight,
-                          child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  'Timezone',
-                                  style: TextStyle(
-                                      fontFamily: "avenir",
-                                      fontWeight: FontWeight.w300,
-                                      color: Colors.white,
-                                      fontSize: 24),
-                                ),
-                                SizedBox(width: 16),
-                                Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.language,
-                                      color: Colors.white,
-                                    ),
-                                    SizedBox(width: 16),
-                                    Text(
-                                      'UTC' + offsetSign + timezoneString,
-                                      style: TextStyle(
-                                          fontFamily: "avenir",
-                                          color: Colors.white,
-                                          fontSize: 14),
-                                    ),
-                                  ],
-                                )
-                              ]),
-                        )
-                      ]));
+              if (value.menuType == MenuType.clock)
+                return ClockPage();
+              else if (value.menuType == MenuType.alarm)
+                return AlarmPage();
+              else
+                return Container(
+                    child: RichText(
+                        text: TextSpan(
+                            style: TextStyle(fontSize: 20),
+                            children: <TextSpan>[
+                      TextSpan(text: 'WIP\n'),
+                      TextSpan(
+                        text: value.title,
+                        style: TextStyle(fontSize: 48),
+                      )
+                    ])));
             },
           ))
         ],
