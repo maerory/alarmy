@@ -1,6 +1,8 @@
+import 'package:alarmy/constants/theme_data.dart';
 import 'package:alarmy/models/menu_info.dart';
 import 'package:alarmy/models/alarm_info.dart';
 import 'package:alarmy/enums.dart';
+import 'package:flutter/material.dart';
 
 List<MenuInfo> menuItems = [
   MenuInfo(MenuType.clock, title: "Clock"),
@@ -10,8 +12,8 @@ List<MenuInfo> menuItems = [
 ];
 
 List<AlarmInfo> alarms = [
-  AlarmInfo(
-    DateTime.now().add(Duration(hours: 1)),
-    description: "Office",
-  ),
+  AlarmInfo(DateTime.now().add(Duration(hours: 1)),
+      description: "Office", gradientColors: GradientColors.sky),
+  AlarmInfo(DateTime.now().add(Duration(hours: 2)),
+      description: "Morning", gradientColors: GradientColors.sunset),
 ];
