@@ -1,8 +1,10 @@
+import 'package:alarmy/alarm_helper.dart';
 import 'package:alarmy/main.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:alarmy/constants/theme_data.dart';
 import 'package:alarmy/data.dart';
+import 'package:alarmy/models/alarm_info.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -13,6 +15,27 @@ class AlarmPage extends StatefulWidget {
 }
 
 class _AlarmPageState extends State<AlarmPage> {
+  DateTime _alarmTime;
+  String _alarmTimeString;
+  AlarmHelper _alarmHelper = AlarmHelper();
+  Future<List<AlarmInfo>> _alarms;
+  List<AlarmInfo> _currentAlarms;
+
+  @override
+  void initState() {
+    _alarmTime = DateTime.now();
+    _alarmHelper.initializeDatabase().then((value) {
+      print('DB INIT.');
+      loadAlarms();
+    });
+    super.initState();
+  }
+
+  void loadAlarms() {
+    _alarms = _alarmHelper.getAlarms();
+    if (mounted) setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -163,5 +186,13 @@ class _AlarmPageState extends State<AlarmPage> {
         androidAllowWhileIdle: true,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime);
+  }
+
+  void onSaveAlarm() {
+    DateTime scheduleAlarmDateTime;
+    if (_alarmTime.isAfter(DateTime.now()))
+      scheduleAlarmDateTime = _alarmTime;
+    else
+      scheduleAlarmDateTime = _alarmTime.add(Duration(days: 1));
   }
 }
